@@ -57,5 +57,8 @@ jobs:
       run: dotnet test --no-build --verbosity normal
       working-directory: ${{env.working-directory}}
     - name: Publish
-      run: dotnet nuget push ./bin/Debug/Protolib.1.0.0.nupkg --skip-duplicate --no-symbols true --source "https://nuget.pkg.github.com/drewwhis/index.json"
+      run: |
+        nuget source Add -Name "github" -Source "https://nuget.pkg.github.com/drewwhis/index.json"
+        nuget setApiKey $NUGET_AUTH_TOKEN -Source "https://nuget.pkg.github.com/drewwhis/index.json"
+        dotnet nuget push ./bin/Debug/Protolib.1.0.0.nupkg --skip-duplicate --no-symbols true --source "github"
       working-directory: ${{env.working-directory}}
