@@ -57,5 +57,5 @@ jobs:
       run: dotnet test --no-build --verbosity normal
       working-directory: ${{env.working-directory}}
     - name: Publish
-      run: dotnet nuget push ./bin/Debug/Protolib.1.0.0.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push ./bin/Debug/Protolib.1.0.0.nupkg --skip-duplicate --no-symbols true --source "https://nuget.pkg.github.com/drewwhis/index.json"
       working-directory: ${{env.working-directory}}
