@@ -58,6 +58,6 @@ jobs:
     - name: Publish
       run: |
         nuget source Add -Name "github" -Source "https://nuget.pkg.github.com/drewwhis/index.json"
-        nuget setApiKey secrets.GITHUB_TOKEN -Source "https://nuget.pkg.github.com/drewwhis/index.json"
+        nuget setApiKey ${{secrets.GITHUB_TOKEN}} -Source "https://nuget.pkg.github.com/drewwhis/index.json"
         dotnet nuget push ./bin/Debug/Protolib.1.0.0.nupkg --skip-duplicate --no-symbols true --source "github"
       working-directory: ${{env.working-directory}}
