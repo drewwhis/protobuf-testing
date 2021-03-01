@@ -17,6 +17,18 @@ jobs:
     - uses: actions/checkout@v2
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Setup protoc
+      run: |
+        git clone https://github.com/protocolbuffers/protobuf.git
+        cd protobuf
+        git submodule update --init --recursive
+        ./autogen.sh
+        ./autogen.sh  # run autogen twice, see below
+        ./configure
+        make
+        make check
+        sudo make install
+        sudo ldconfig
     - name: Build protobuf
       run: protoc -I=../../. --csharp_out=. ../../*.proto  
     - name: Setup .NET
